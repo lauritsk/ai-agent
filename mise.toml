@@ -1,6 +1,4 @@
 [tools]
-"go:github.com/bootdotdev/bootdev" = "latest"
-helix = "latest"
 "pipx:ruff" = "latest"
 "pipx:ty" = "latest"
 sqlite = "latest"
