@@ -23,6 +23,10 @@ run = "uv format --preview-features format --check"
 description = "Type-check project"
 run = "uvx ty check"
 
+[tasks.test]
+description = "Run test suite"
+run = "uv run pytest"
+
 [tasks.secrets]
 description = "Scan project for secrets"
 run = "gitleaks dir ."
@@ -37,4 +41,4 @@ run = "cog check"
 
 [tasks.check]
 description = "Run project checks"
-depends = ["lint", "typecheck", "secrets", "audit", "commits"]
+depends = ["lint", "typecheck", "test", "secrets", "audit", "commits"]

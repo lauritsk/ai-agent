@@ -1,37 +1,35 @@
 from functions.get_file_content import get_file_content
 
-print("Content length of lorem.txt:")
-result = get_file_content("calculator", "lorem.txt")
-if result.startswith("Error:"):
-    print(result)
-else:
-    print(len(result))
-    print(result.endswith('[...File "lorem.txt" truncated at 10000 characters]'))
 
-print("Content length of main.py:")
-result = get_file_content("calculator", "main.py")
-if result.startswith("Error:"):
-    print(result)
-else:
-    print(result)
+def test_reads_file_contents(tmp_path):
+    file_path = tmp_path / "example.txt"
+    file_path.write_text("hello world")
 
-print("Content length of pkg/calculator.py:")
-result = get_file_content("calculator", "pkg/calculator.py")
-if result.startswith("Error:"):
-    print(result)
-else:
-    print(result)
+    result = get_file_content(str(tmp_path), "example.txt")
 
-print("Content length of /bin/cat:")
-result = get_file_content("calculator", "/bin/cat")
-if result.startswith("Error:"):
-    print(result)
-else:
-    print(len(result))
+    assert result == "hello world"
 
-print("Content length of pkg/does_not_exist.py:")
-result = get_file_content("calculator", "pkg/does_not_exist.py")
-if result.startswith("Error:"):
-    print(result)
-else:
-    print(len(result))
+
+def test_rejects_paths_outside_working_directory(tmp_path):
+    result = get_file_content(str(tmp_path), "/bin/cat")
+
+    assert (
+        result
+        == 'Error: Cannot read "/bin/cat" as it is outside the permitted working directory'
+    )
+
+
+def test_reports_missing_files(tmp_path):
+    result = get_file_content(str(tmp_path), "missing.txt")
+
+    assert result == 'Error: File not found or is not a regular file: "missing.txt"'
+
+
+def test_truncates_large_files(tmp_path):
+    file_path = tmp_path / "large.txt"
+    file_path.write_text("a" * 10001)
+
+    result = get_file_content(str(tmp_path), "large.txt")
+
+    assert len(result) > 10000
+    assert result.endswith('[...File "large.txt" truncated at 10000 characters]')

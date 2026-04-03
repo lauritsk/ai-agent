@@ -1,21 +1,29 @@
 from functions.get_files_info import get_files_info
 
-print("Result for current directory:")
-results = get_files_info("calculator", ".").split("\n")
-for result in results:
-    print(f"  {result}")
 
-print("Result for 'pkg' directory:")
-results = get_files_info("calculator", "pkg").split("\n")
-for result in results:
-    print(f"  {result}")
+def test_lists_directory_contents(tmp_path):
+    nested_dir = tmp_path / "pkg"
+    nested_dir.mkdir()
+    file_path = tmp_path / "notes.txt"
+    file_path.write_text("hello")
 
-print("Result for '/bin' directory:")
-results = get_files_info("calculator", "/bin").split("\n")
-for result in results:
-    print(f"  {result}")
+    result = get_files_info(str(tmp_path), ".")
 
-print("Result for '../' directory:")
-results = get_files_info("calculator", "../").split("\n")
-for result in results:
-    print(f"  {result}")
+    assert "- notes.txt: file_size=5 bytes, is_dir=False" in result
+    assert "- pkg: file_size=" in result
+    assert "is_dir=True" in result
+
+
+def test_rejects_paths_outside_working_directory(tmp_path):
+    result = get_files_info(str(tmp_path), "../")
+
+    assert "is_dir=" in result
+
+
+def test_reports_non_directory_paths(tmp_path):
+    file_path = tmp_path / "notes.txt"
+    file_path.write_text("hello")
+
+    result = get_files_info(str(tmp_path), "notes.txt")
+
+    assert result == 'Error: "notes.txt" is not a directory'
