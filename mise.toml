@@ -1,4 +1,5 @@
 [tools]
+cocogitto = "7.0.0"
 gitleaks = "8.30.1"
 "pipx:ruff" = "latest"
 "pipx:ty" = "latest"
@@ -8,6 +9,10 @@ uv = "latest"
 [tasks.gitleaks]
 description = "Scan the repository for secrets"
 run = "gitleaks dir ."
+
+[tasks.cocogitto]
+description = "Enforce conventional commits"
+run = "cog check"
 
 [tasks.pre-commit]
 description = "Run pre-commit checks"
