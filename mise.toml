@@ -10,11 +10,11 @@ run = "uv format --preview-features format"
 
 [tasks.lint]
 description = "Lint the project"
-run = "uv run ruff check"
+run = "uv format --preview-features format --check"
 
 [tasks.typecheck]
 description = "Type-check the project"
-run = "uv run ty check"
+run = "uvx ty check"
 
 [tasks.secrets]
 description = "Scan the repository for secrets"
