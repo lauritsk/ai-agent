@@ -16,4 +16,4 @@ run = "cog check"
 
 [tasks.pre-commit]
 description = "Run pre-commit checks"
-depends = ["gitleaks"]
+depends = ["gitleaks", "cocogitto"]
