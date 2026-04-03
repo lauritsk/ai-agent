@@ -1,5 +1,14 @@
 [tools]
+gitleaks = "8.30.1"
 "pipx:ruff" = "latest"
 "pipx:ty" = "latest"
 sqlite = "latest"
 uv = "latest"
+
+[tasks.gitleaks]
+description = "Scan the repository for secrets"
+run = "gitleaks dir ."
+
+[tasks.pre-commit]
+description = "Run pre-commit checks"
+depends = ["gitleaks"]
