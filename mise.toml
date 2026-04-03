@@ -5,23 +5,23 @@ sqlite = "3.52.0"
 uv = "0.11.3"
 
 [tasks.format]
-description = "Format Python code"
+description = "Format project"
 run = "uv format --preview-features format"
 
 [tasks.lint]
-description = "Lint the project"
+description = "Lint project"
 run = "uv format --preview-features format --check"
 
 [tasks.typecheck]
-description = "Type-check the project"
+description = "Type-check project"
 run = "uvx ty check"
 
 [tasks.secrets]
-description = "Scan the repository for secrets"
+description = "Scan project for secrets"
 run = "gitleaks dir ."
 
 [tasks.audit]
-description = "Audit dependencies for vulnerabilities"
+description = "Audit project dependencies"
 run = "uv audit --preview-features audit --locked"
 
 [tasks.commits]
