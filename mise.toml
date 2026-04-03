@@ -20,10 +20,6 @@ run = "gitleaks dir ."
 description = "Enforce conventional commits"
 run = "cog check"
 
-[tasks.pre-commit]
-description = "Run pre-commit checks"
-depends = ["ruff", "ty", "gitleaks", "cocogitto"]
-
-[tasks.ci]
-description = "Run ci checks"
+[tasks.check]
+description = "Run project checks"
 depends = ["ruff", "ty", "gitleaks", "cocogitto"]
