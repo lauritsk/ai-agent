@@ -1,8 +1,8 @@
 [tools]
 cocogitto = "7.0.0"
 gitleaks = "8.30.1"
-sqlite = "latest"
-uv = "latest"
+sqlite = "3.52.0"
+uv = "0.11.3"
 
 [tasks.ruff]
 description = "Lint the project"
@@ -22,4 +22,8 @@ run = "cog check"
 
 [tasks.pre-commit]
 description = "Run pre-commit checks"
+depends = ["ruff", "ty", "gitleaks", "cocogitto"]
+
+[tasks.ci]
+description = "Run ci checks"
 depends = ["ruff", "ty", "gitleaks", "cocogitto"]
