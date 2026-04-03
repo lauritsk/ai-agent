@@ -4,6 +4,13 @@ gitleaks = "8.30.1"
 sqlite = "3.52.0"
 uv = "0.11.3"
 
+[hooks]
+enter = { task = "setup" }
+
+[tasks.setup]
+description = "Sync project dependencies"
+run = "uv sync --locked"
+
 [tasks.format]
 description = "Format project"
 run = "uv format --preview-features format"
