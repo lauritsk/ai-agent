@@ -4,22 +4,30 @@ gitleaks = "8.30.1"
 sqlite = "3.52.0"
 uv = "0.11.3"
 
-[tasks.ruff]
-description = "Lint the project"
-run = "uv run ruff check --fix"
+[tasks.format]
+description = "Format Python code"
+run = "uv format --preview-features format"
 
-[tasks.ty]
+[tasks.lint]
+description = "Lint the project"
+run = "uv run ruff check"
+
+[tasks.typecheck]
 description = "Type-check the project"
 run = "uv run ty check"
 
-[tasks.gitleaks]
+[tasks.secrets]
 description = "Scan the repository for secrets"
 run = "gitleaks dir ."
 
-[tasks.cocogitto]
+[tasks.audit]
+description = "Audit dependencies for vulnerabilities"
+run = "uv audit --preview-features audit --locked"
+
+[tasks.commits]
 description = "Enforce conventional commits"
 run = "cog check"
 
 [tasks.check]
 description = "Run project checks"
-depends = ["ruff", "ty", "gitleaks", "cocogitto"]
+depends = ["lint", "typecheck", "secrets", "audit", "commits"]
