@@ -2,7 +2,7 @@
 cocogitto = "7.0.0"
 gitleaks = "8.30.1"
 sqlite = "3.53.0"
-uv = "0.11.6"
+uv = "0.11.8"
 
 [hooks]
 enter = { task = "setup" }
